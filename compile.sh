@@ -34,7 +34,7 @@ objects=""
 
 for i in "${source[@]}"
 do
-    obj="`echo $i | sed 's-src/-obj/-g' | sed 's-.cpp-.o-g'`"
+    obj="`echo $i | sed 's-faucet/-obj/-g' | sed 's-.cpp-.o-g'`"
     deps=($(gcc -std=c++11 -MM $i | sed -e 's/^\w*.o://' | tr '\n' ' ' | sed -e 's/\\//g' | sed 's/ \+//' | sed 's/ \+/\n/g'))
     for j in "${deps[@]}"
     do
