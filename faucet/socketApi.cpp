@@ -19,7 +19,11 @@
 #include <cstdio>
 #include <memory>
 
+#ifdef _WIN32
 #define DLLEXPORT extern "C" __declspec(dllexport)
+#else
+#define DLLEXPORT extern "C" __attribute__((visibility("default")))
+#endif
 
 // TODO: Add function fct_clear_returnbuffer()?
 // TODO: split up this file

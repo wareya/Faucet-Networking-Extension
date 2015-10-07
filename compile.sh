@@ -1,5 +1,7 @@
 #!/bin/bash
 
+executable="faucetnetworking.so"
+
 source=(
  "faucet/Asio.cpp"
  "faucet/GmStringBuffer.cpp"
@@ -24,11 +26,11 @@ mkdir -p obj/tcp/connectionStates
 mkdir -p obj/udp
  
 cmd="g++ --std=gnu++11 -DBUILD_DLL -I.\
- -O2 -s -m32 -march=i686\
+ -O2 -fPIC\
  -Wall -Wextra\
- -Wno-unused-local-typedefs -Wno-unused-parameter -Wno-strict-aliasing"
-linker="
- -static"
+ -Wno-unused-local-typedefs -Wno-unused-parameter -Wno-strict-aliasing "
+linker="\
+ -lboost_system -lboost_thread -lpthread -fPIC -shared"
  
 objects=""
 
@@ -47,7 +49,7 @@ do
     objects="$objects $obj"
 done
 echo "g++ -o $executable $objects $linker"
-g++ -m32 -o $executable $objects $linker
+g++ -o $executable $objects $linker
 
 echo "done"
  
